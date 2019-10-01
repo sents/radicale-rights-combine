@@ -16,21 +16,20 @@ builtin_rights = {
 }
 
 
-class Rights(rights.BaseRights):
+class Rights(BaseRights):
     def __init__(self, configuration, logger):
         super().__init__(configuration, logger)
-        types = list(
-            map(str.split,
-                self.configuration.get("rights", "ldap_url").split(",")))
+        types = map(str.strip,
+                    self.configuration.get("rights", "types").split(","))
         self.rights = {
-            s: init_right(s, configuration, logger)
-            for s in self.types
+            s: self.init_right(s, configuration, logger)
+            for s in types
         }
 
     @staticmethod
     def init_right(right_name, configuration, logger):
         if right_name in builtin_rights.keys():
-            return builtin_rights[right_name]
+            return builtin_rights[right_name](configuration, logger)
         else:
             return import_module(right_name).Rights(configuration, logger)
 
@@ -41,12 +40,12 @@ class Rights(rights.BaseRights):
             self.rights.keys(), user, path, permissions)
         results = {
             name: right.authorized(user, path, permissions)
-            for name, right in self.rights
+            for name, right in self.rights.items()
         }
         if any(results.values()):
-            auth_plugs = [plug for plug, auth in results.values() if auth]
+            auth_plugs = [plug for plug, auth in results.items() if auth]
             self.logger.debug("Plugins %r authorized access.", auth_plugs)
-            return true
+            return True
         else:
             self.logger.debug(
                 "No pluging authorized the request. Denying access.")
