@@ -38,15 +38,14 @@ class Rights(BaseRights):
             """Using plugins %r to determine rights for request:
                 User %r access path %r with permissions %r.""",
             self.rights.keys(), user, path, permissions)
-        results = {
-            name: right.authorized(user, path, permissions)
-            for name, right in self.rights.items()
-        }
-        if any(results.values()):
-            auth_plugs = [plug for plug, auth in results.items() if auth]
-            self.logger.debug("Plugins %r authorized access.", auth_plugs)
+        results = (
+            right.authorized(user, path, permissions)
+            for right in self.rights.values()
+        )
+        if any(results):
+            self.logger.debug("One of the plugins authorized access.")
             return True
         else:
             self.logger.debug(
                 "No pluging authorized the request. Denying access.")
-            return false
+            return False
