@@ -27,7 +27,7 @@ class Rights(BaseRights):
             s: self.init_right(s, configuration, logger)
             for s in types
         }
-        self.reslove_symlinks = self.configuration.getboolean(
+        self.resolve_symlinks = self.configuration.getboolean(
                 "rights", "resolve_symlinks", fallback="False")
         if self.resolve_symlinks:
             filesystem_folder = self.configuration.get("storage",
