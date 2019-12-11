@@ -5,7 +5,6 @@ from radicale.rights import (
     OwnerOnlyRights,
     Rights,
 )
-from radicale.storage import load
 from importlib import import_module
 from os import path as p
 
