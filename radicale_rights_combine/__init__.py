@@ -44,7 +44,7 @@ class Rights(BaseRights):
             return import_module(right_name).Rights(configuration, logger)
 
     def __authorized_resolve_symlinks(self, user, path, permissions):
-        fullpath = p.join(self.storepath, path)
+        fullpath = p.join(self.storepath, path.strip("/"))
         if p.islink(fullpath):
             target = p.realpath(fullpath)
             path = target.replace(self.storepath, "")
