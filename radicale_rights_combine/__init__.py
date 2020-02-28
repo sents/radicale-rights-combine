@@ -27,11 +27,11 @@ class Rights(BaseRights):
             for s in types
         }
         self.resolve_symlinks = self.configuration.getboolean(
-                "rights", "resolve_symlinks", fallback="False")
+                "rights", "resolve_symlinks", fallback="True")
         if self.resolve_symlinks:
             filesystem_folder = self.configuration.get("storage",
                                                        "filesystem_folder")
-            self.storepath = p.join(filesystem_folder, "collection_root")
+            self.storepath = p.join(filesystem_folder, "collection-root")
             self.authorized = self.__authorized_resolve_symlinks
         else:
             self.authorized = self.__authorized
