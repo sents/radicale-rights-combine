@@ -5,11 +5,14 @@ The rights plugins that are to be used are specified in the types option in the 
 The plugin options for the specified rights are given in the same way you would write them if you were only using one plugin (for now I am hoping that there are no conflicting options).
 
 Here is an example using the radicale\_rights\_ldap plugin with the from\_file builtin rights provider.
+In `/etc/radicale/conf`:
 ```
 [rights]
 
 type = radicale-rights-combine
 types = radicale_rights_ldap, from_file
+# File for from_file
+file = /etc/radicale/rights
 
 # radicale_rights_ldap configuration
 # LDAP server url, with protocol and optionally port.
@@ -38,7 +41,9 @@ ldap_filter = memberOf=cn=radicaleUsers,ou=Groups,dc=Domain
 
 # LDAP scope of the search, default is SUBTREE
 ldap_scope = LEVEL
-
+```
+In `/etc/radicale/rights`:
+```
 # from_file configuration
 # The user "admin" can read and write any collection.
 [admin]
