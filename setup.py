@@ -22,7 +22,7 @@ For more information read the README.md.
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
     ],
-    license="GNU GPLv3",
+    license="GNU AGPLv3",
     install_requires=["radicale >= 3"],
     author="Finn Krein",
     author_email="finn@krein.moe",
