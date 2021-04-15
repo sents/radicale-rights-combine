@@ -2,7 +2,8 @@
 This is a radicale plugin to use multiple radicale rights plugins at once.
 The plugin will grant access to a path whenever **any** of the chosen plugins grants access.
 The rights plugins that are to be used are specified in the types option in the rights section of the radicale config.
-The plugin options for the specified rights are given in the same way you would write them if you were only using one plugin (for now I am hoping that there are no conflicting options).
+The plugin options for the specified rights are given in the same way you would write them if you were only using one plugin (for now I am hoping that there are no conflicting options). Because I needed it there is also a `follow_symlinks` flag to make the rights plugins check the destination path for access rights
+instead of the link when there are symlinks in a users collection
 
 Here is an example using the radicale\_rights\_ldap plugin with the from\_file builtin rights provider.
 In `/etc/radicale/conf`:
